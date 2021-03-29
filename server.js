@@ -1,14 +1,16 @@
 const express = require("express");
 const logger = require("morgan");
 const mongoose = require("mongoose");
-const apiRoutes = require("./routes/api-routes");
-const htmlRoutes = require("./routes/html-routes");
+const htmlRoutes = require("./routes/html-routes.js");
+
 
 //run express function
 const app = express();
 
+app.use(logger("dev"));
+
 // Sets the initial port
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 
 // Sets up the Express app to handle data parsing
 app.use(express.static('public'));
@@ -16,13 +18,18 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 //Sets up mongoose connection
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/dbExample", { useNewUrlParser: true });
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workoutDB", {
+useNewUrlParser: true,
+useUnifiedTopology: true,
+useCreateIndex: true,
+useFindAndModify: false
+ });
 
 //Routes
-app.use("/", apiRoutes);
-app.use("/", htmlRoutes);
+const apiRoutes = require("./routes/api-routes")(app);
+app.use(htmlRoutes);
 
 // Listens for Port
-app.listen(process.env.PORT || 3000, function(){
-    console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
+app.listen(PORT,function(){
+    console.log(`Express server listening on port ${PORT}` );
   });
