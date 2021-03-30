@@ -2,7 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const morgan = require("morgan");
 const htmlRoutes = require("./routes/html-routes.js");
-// const apiRoutes = require("./routes/api-routes.js");
+const apiRoutes = require("./routes/api-routes.js");
 
 
 // Sets the initial port
@@ -27,9 +27,9 @@ useFindAndModify: false
  });
 
 //Routes
-const apiRoutes = require("./routes/api-routes")(app);
+// const apiRoutes = require("./routes/api-routes")(app);
 app.use("/", htmlRoutes);
-// app.use("/api", apiRoutes);
+app.use("/api", apiRoutes);
 
 
 // Listens for Port and mongoose connection
