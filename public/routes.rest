@@ -1,0 +1,17 @@
+GET http://localhost:3000/
+
+###
+GET http://localhost:3000/api/workouts
+
+###
+POST http://localhost:3000/api/workouts
+content-type: application/json
+
+{
+    "type": "resistance",
+    "name": "Squats",
+    "weight": 200,
+    "sets": 4,
+    "reps": 10,
+    "duration": 10
+}
