@@ -28,8 +28,8 @@ useFindAndModify: false
 
 //Routes
 // const apiRoutes = require("./routes/api-routes")(app);
-app.use("/", htmlRoutes);
-app.use("/api", apiRoutes);
+app.use( htmlRoutes);
+app.use(apiRoutes);
 
 
 // Listens for Port and mongoose connection
